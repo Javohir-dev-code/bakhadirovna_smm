@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orzigul Rabbimova — mobilograf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   RANGLAR — o'zgartirish uchun shu yerga qarang
+   ========================================================= */
+:root{
+  --bg:#F5F0F6; --surface:#FFFFFF;
+  --ink:#25142B; --ink-soft:#5E4A66;
+  --accent:#C93A66; --accent-ink:#FFFFFF;
+  --line:rgba(37,20,43,.14); --chip:#EADFF0;
+  --gold:#E88A1A;
+  --font-head:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --font-body:'DM Sans','Segoe UI',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+        --bg:#150A1A; --surface:#211229;
+    --ink:#F6ECF6; --ink-soft:#BFA9C8;
+    --accent:#FF8FB1; --accent-ink:#2A0F1F;
+    --line:rgba(246,236,246,.16); --chip:#2F1C3A;
+    --gold:#FFC46B;
+  }
+}
+:root[data-theme="dark"]{
+      --bg:#150A1A; --surface:#211229;
+    --ink:#F6ECF6; --ink-soft:#BFA9C8;
+    --accent:#FF8FB1; --accent-ink:#2A0F1F;
+    --line:rgba(246,236,246,.16); --chip:#2F1C3A;
+    --gold:#FFC46B;
+}
+
+.btn.theme-btn { padding: 0 !important; display: flex !important; align-items: center !important; justify-content: center !important; border-radius: 50% !important; width: 42px !important; height: 42px !important; min-width: 42px !important; min-height: 42px !important; border: 2px solid var(--ink-soft) !important; }
+.btn.theme-btn:hover { background: var(--surface); }
+
+/* Bosh ekran va aloqa bo'limi har doim to'q rangda */
+
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);transition:background 0.3s, color 0.3s;font-family:var(--font-body);font-size:1.05rem;line-height:1.65;overflow-x:hidden}
+h1,h2,h3{font-family:var(--font-head);line-height:1.05;letter-spacing:-.02em}
+h2{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:800;margin-bottom:.8rem}
+p{max-width:58ch}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1160px;margin:0 auto}
+section.block{padding:clamp(4rem,9vw,7.5rem) 1.25rem}
+.sub{color:var(--ink-soft);margin-bottom:2.4rem}
+
+.btn{
+  display:inline-block;font:700 1rem var(--font-body);text-decoration:none;cursor:pointer;
+  padding:.9rem 1.7rem;border-radius:999px;border:2px solid transparent;
+  background:var(--accent);color:var(--accent-ink);
+  transition:transform .2s, background .2s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn.gold{background:var(--gold);color:#2A1330}
+.btn.ghost{background:transparent;border-color:var(--ink-soft);color:var(--ink)}
+.btn.ghost:hover{background:var(--surface)}
+
+/* =========================================================
+   1. HERO — telefon kadri (viewfinder)
+   ========================================================= */
+.hero{transition:background 0.3s ease, color 0.3s ease;
+  position:relative;min-height:100svh;color:var(--ink);overflow:hidden;
+  background:
+    radial-gradient(55% 55% at 78% 42%,rgba(255,140,100,.30),transparent 70%),
+    radial-gradient(45% 45% at 8% 95%,rgba(200,60,130,.28),transparent 70%),
+    var(--bg);
+  padding:6.5rem 1.25rem 3rem;display:grid;align-items:center;
+}
+.top{
+  position:absolute;top:0;left:0;right:0;padding:1.4rem 1.25rem;
+  display:flex;justify-content:space-between;align-items:center;max-width:1160px;margin:0 auto;z-index:5;
+}
+.logo{font:800 1.35rem var(--font-head);text-decoration:none;letter-spacing:-.02em}
+.top nav{display:flex;gap:1.8rem}
+.top nav a{text-decoration:none;font-weight:500;color:var(--ink-soft);transition:color .2s}
+.top nav a:hover{color:var(--ink)}
+.top .btn{padding:.55rem 1.2rem;font-size:.95rem}
+
+.hero-grid{max-width:1160px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+.hero h1{font-size:clamp(2.7rem,6.6vw,5.8rem);font-weight:800;line-height:.98;letter-spacing:-.035em}
+.hero .lead{margin:1.6rem 0 2.2rem;font-size:clamp(1.05rem,2vw,1.25rem);color:var(--ink-soft);max-width:46ch}
+.hero .cta{display:flex;gap:.9rem;flex-wrap:wrap}
+
+/* Bitta uyushtirilgan kirish: kadr yoqiladi, sarlavha ochiladi */
+.hero h1{animation:rise .9s cubic-bezier(.2,.8,.2,1) both .1s}
+.hero .lead{animation:rise .9s cubic-bezier(.2,.8,.2,1) both .3s}
+.hero .cta{animation:rise .9s cubic-bezier(.2,.8,.2,1) both .45s}
+.cam{animation:power 1s cubic-bezier(.2,.9,.3,1) both .25s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes power{from{opacity:0;transform:translateY(30px) scale(.93)}to{opacity:1;transform:none}}
+
+.cam-wrap{display:grid;justify-items:center;gap:1rem}
+.cam{
+  position:relative;height:min(70svh,590px);aspect-ratio:9/16;padding:7px;border-radius:40px;background:var(--surface);
+  box-shadow:0 0 0 2px var(--line),0 50px 90px rgba(0,0,0,.25);
+}
+.screen{position:relative;width:100%;height:100%;border-radius:33px;overflow:hidden;background:#111;cursor:crosshair}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:28%;height:20px;border-radius:99px;background:#000;z-index:4}
+
+.scenes{position:absolute;inset:0;transform:scale(var(--zoom,1));transition:transform .55s cubic-bezier(.3,.8,.3,1)}
+.scene{position:absolute;inset:-5%;opacity:0;transition:opacity .7s ease}
+.scene.on{opacity:1;animation:pan 22s ease-in-out infinite alternate;will-change:transform}
+@keyframes pan{to{transform:translate(2.5%,-2%) scale(1.04)}}
+.scene::before{content:"";position:absolute}
+
+/* 1. Oltin soat */
+.s0{background:
+  radial-gradient(circle at 50% 56%,#fff6d0 0 6%,#ffd28a 7% 12%,rgba(255,210,138,0) 13%),
+  linear-gradient(180deg,#f9d7a6 0%,#f29a72 42%,#a4487a 68%,#33193c 100%)}
+.s0::before{left:0;right:0;bottom:0;height:36%;background:#1d0e26;
+  clip-path:polygon(0 45%,18% 26%,35% 42%,55% 14%,78% 40%,100% 22%,100% 100%,0 100%)}
+/* 2. Dengiz */
+.s1{background:
+  radial-gradient(circle at 72% 26%,#fffbe0 0 6%,rgba(255,251,224,0) 14%),
+  linear-gradient(180deg,#d6f0fa 0%,#a9dcf0 48%,#3b9fc4 48.2%,#1e6f9a 100%)}
+.s1::before{left:0;right:0;bottom:0;height:52%;opacity:.5;
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,.35) 0 2px,transparent 2px 22px)}
+/* 3. Tungi shahar */
+.s2{background:
+  radial-gradient(circle at 72% 20%,#fff 0 3.5%,rgba(255,255,255,0) 9%),
+  linear-gradient(180deg,#0a0a2c,#3c1e70 68%,#a2467f 100%)}
+.s2::before{left:0;right:0;bottom:0;height:46%;
+  background:radial-gradient(circle,#ffd58a 1.2px,transparent 1.8px) 0 0/14px 18px,#100820;
+  clip-path:polygon(0 60%,8% 60%,8% 35%,16% 35%,16% 55%,24% 55%,24% 20%,33% 20%,33% 50%,41% 50%,41% 30%,52% 30%,52% 62%,60% 62%,60% 25%,70% 25%,70% 45%,80% 45%,80% 12%,90% 12%,90% 55%,100% 55%,100% 100%,0 100%)}
+/* 4. Bahor */
+.s3{background:linear-gradient(160deg,#f6c9d8,#e7b5e0 50%,#b9d6bd 100%)}
+.s3::before{inset:0;background:
+  radial-gradient(circle at 22% 30%,rgba(255,255,255,.7) 0 8%,transparent 9%),
+  radial-gradient(circle at 70% 22%,rgba(255,236,190,.75) 0 10%,transparent 11%),
+  radial-gradient(circle at 48% 62%,rgba(255,255,255,.5) 0 12%,transparent 13%),
+  radial-gradient(circle at 82% 70%,rgba(255,190,210,.7) 0 9%,transparent 10%),
+  radial-gradient(circle at 14% 78%,rgba(255,240,200,.6) 0 7%,transparent 8%)}
+
+.grid3{position:absolute;inset:0;pointer-events:none;z-index:2;background:
+  linear-gradient(90deg,transparent calc(33.33% - .5px),rgba(255,255,255,.26) calc(33.33% - .5px) calc(33.33% + .5px),transparent calc(33.33% + .5px) calc(66.66% - .5px),rgba(255,255,255,.26) calc(66.66% - .5px) calc(66.66% + .5px),transparent calc(66.66% + .5px)),
+  linear-gradient(180deg,transparent calc(33.33% - .5px),rgba(255,255,255,.26) calc(33.33% - .5px) calc(33.33% + .5px),transparent calc(33.33% + .5px) calc(66.66% - .5px),rgba(255,255,255,.26) calc(66.66% - .5px) calc(66.66% + .5px),transparent calc(66.66% + .5px))}
+.hud{position:absolute;left:14px;right:14px;z-index:3;color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.5);font-weight:700;font-size:.82rem}
+.hud-top{top:38px;display:flex;justify-content:space-between;align-items:center}
+.rec{display:flex;align-items:center;gap:.4rem;font-variant-numeric:tabular-nums}
+.rec i{width:9px;height:9px;border-radius:50%;background:#ff3b4e;animation:blink 1.4s steps(2,jump-none) infinite}
+@keyframes blink{50%{opacity:.15}}
+.hud-bot{bottom:14px;display:grid;justify-items:center;gap:.7rem}
+.scene-name{background:rgba(0,0,0,.7);padding:.2rem .85rem;border-radius:99px;font-size:.8rem}
+.zoom{display:flex;gap:.35rem}
+.zoom button{
+  width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;font:700 .78rem var(--font-body);
+  background:rgba(0,0,0,.45);color:#fff;
+}
+.zoom button[aria-pressed="true"]{background:var(--gold);color:#2A1330}
+.shutter{
+  width:58px;height:58px;border-radius:50%;border:4px solid #fff;background:none;cursor:pointer;position:relative;
+}
+.shutter::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#fff;transition:transform .12s}
+.shutter:active::after{transform:scale(.82)}
+.focus{
+  position:absolute;width:70px;height:70px;border:2px solid var(--gold);border-radius:8px;z-index:3;
+  transform:translate(-50%,-50%);opacity:0;pointer-events:none;
+}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:6}
+.cam-hint{font-size:.9rem;color:var(--ink-soft);text-align:center;max-width:30ch}
+
+/* =========================================================
+   2. ISHLARIM
+   ========================================================= */
+.head-row{display:flex;justify-content:space-between;align-items:end;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.head-row .sub{margin:0}
+.arrows{display:flex;gap:.6rem}
+.arrows button{
+  width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;
+  display:grid;place-items:center;transition:background .2s,color .2s;
+}
+.arrows button:hover{background:var(--ink);color:var(--bg)}
+.strip{
+  display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.4rem 1.25rem 1.2rem;
+  margin:0 -1.25rem;scrollbar-width:none;
+}
+.strip::-webkit-scrollbar{display:none}
+.reel{
+  position:relative;flex:0 0 auto;width:clamp(200px,24vw,250px);aspect-ratio:9/16;border-radius:24px;overflow:hidden;
+  scroll-snap-align:start;color:#fff;
+}
+.reel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),transparent 25%,transparent 50%,rgba(0,0,0,.78))}
+.bars{position:absolute;top:12px;left:12px;right:12px;display:flex;gap:4px;z-index:2}
+.bars span{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.4);position:relative;overflow:hidden}
+.bars span::after{content:"";position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
+.reel:hover .bars span:first-child::after,.reel:focus-visible .bars span:first-child::after{transform:scaleX(1);transition:transform 4s linear}
+.reel .info{position:absolute;left:14px;right:14px;bottom:14px;z-index:2}
+.reel .tag{display:inline-block;font-size:.78rem;font-weight:700;padding:.15rem .7rem;border-radius:99px;background:rgba(0,0,0,.5);color:#fff;margin-bottom:.45rem}
+.reel h3{font-size:1.15rem;font-weight:700;line-height:1.15}
+.r1{background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.6) 0 9%,transparent 10%),radial-gradient(circle at 72% 55%,rgba(255,236,190,.6) 0 12%,transparent 13%),linear-gradient(160deg,#f2a9c0,#c98ad8 55%,#8fbf9f)}
+.r2{background:radial-gradient(circle at 70% 25%,#fff4d2 0 8%,transparent 9%),linear-gradient(170deg,#ffd6a5,#f0a0b8 50%,#7a4a9c)}
+.r3{background:radial-gradient(circle at 50% 60%,#fff2c0 0 8%,#ffc27a 9% 14%,transparent 15%),linear-gradient(180deg,#f7c08a,#e8756f 50%,#5a2a6a)}
+.r4{background:radial-gradient(circle at 74% 20%,#fff 0 3%,transparent 8%),radial-gradient(circle,#ffd58a 1px,transparent 1.6px) 0 100%/14px 18px,linear-gradient(180deg,#0a0a2c,#3c1e70 65%,#9a4380)}
+.r5{background:radial-gradient(circle at 40% 45%,#fff 0 20%,transparent 21%),linear-gradient(160deg,#c6efe0,#a5d6d0 55%,#e5d9f5)}
+.r6{background:radial-gradient(circle at 25% 70%,rgba(255,255,255,.5) 0 10%,transparent 11%),linear-gradient(170deg,#ff9f8a,#d8577f 55%,#4a2260)}
+
+/* =========================================================
+   3. MEN HAQIMDA
+   ========================================================= */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:start}
+.about h2{font-size:clamp(2.2rem,5.2vw,4rem)}
+.about p{margin-bottom:1.1rem;color:var(--ink-soft)}
+.about p:first-of-type{color:var(--ink)}
+.gear-title{font:700 1.15rem var(--font-head);margin:1.8rem 0 .8rem;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:.55rem;list-style:none}
+.chips li{background:var(--chip);border-radius:99px;padding:.3rem 1rem;font-weight:500;font-size:.95rem}
+
+/* =========================================================
+   4. XIZMATLAR
+   ========================================================= */
+.svc{list-style:none;border-top:1px solid var(--line)}
+.svc li{
+  display:grid;grid-template-columns:1.1fr 1.4fr auto;gap:1.5rem;align-items:center;
+  padding:1.7rem .5rem;border-bottom:1px solid var(--line);transition:background .25s,padding .25s;
+}
+.svc li:hover{background:var(--surface);padding-left:1.4rem;padding-right:1.4rem}
+.svc h3{font-size:clamp(1.3rem,2.4vw,1.8rem);font-weight:700}
+.svc p{color:var(--ink-soft)}
+.svc .price{font:700 1.05rem var(--font-head);white-space:nowrap}
+
+/* =========================================================
+   5. JARAYON — haqiqiy ketma-ketlik
+   ========================================================= */
+.steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;position:relative}
+.steps::before{content:"";position:absolute;left:0;right:0;top:22px;border-top:2px dashed var(--line)}
+.steps li{position:relative}
+.steps .n{
+  width:46px;height:46px;border-radius:50%;background:var(--accent);color:var(--accent-ink);
+  display:grid;place-items:center;font:800 1.1rem var(--font-head);margin-bottom:1rem;position:relative;
+}
+.steps h3{font-size:1.25rem;font-weight:700;margin-bottom:.3rem}
+.steps p{color:var(--ink-soft);font-size:.98rem}
+
+/* =========================================================
+   6. MIJOZ FIKRI
+   ========================================================= */
+.quote{max-width:900px}
+.quote blockquote{font:700 clamp(1.6rem,3.6vw,2.7rem)/1.2 var(--font-head);letter-spacing:-.02em}
+.quote figcaption{margin-top:1.4rem;color:var(--ink-soft)}
+.brands{display:flex;flex-wrap:wrap;gap:.6rem 2rem;margin-top:3rem;font:700 1.15rem var(--font-head);color:var(--ink-soft)}
+
+/* =========================================================
+   7. ALOQA
+   ========================================================= */
+.contact{transition:background 0.3s, color 0.3s;
+  background:radial-gradient(60% 80% at 90% 10%,rgba(255,140,100,.3),transparent 70%),var(--bg);
+  color:var(--ink);border-radius:40px;padding:clamp(2.5rem,7vw,5rem) clamp(1.5rem,5vw,4rem);
+}
+.contact h2{font-size:clamp(2.2rem,6vw,4.6rem);font-weight:800;max-width:14ch;margin-bottom:1rem}
+.contact p{color:var(--ink-soft);margin-bottom:2rem}
+.contact .cta{display:flex;flex-wrap:wrap;gap:.8rem}
+.avail{display:flex;align-items:center;gap:.6rem;margin-top:2rem;font-size:.95rem;color:var(--ink-soft)}
+.avail i{width:10px;height:10px;border-radius:50%;background:#7BE0A6;box-shadow:0 0 0 4px rgba(123,224,166,.2)}
+footer{padding:2rem 1.25rem 3rem;text-align:center;color:var(--ink-soft);font-size:.92rem}
+footer p{margin:0 auto}
+
+/* ---------- Mobil ---------- */
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:2.5rem}
+  .cam{height:min(62svh,520px)}
+  .top nav{display:none}
+  .about{grid-template-columns:1fr}
+  .svc li{grid-template-columns:1fr;gap:.4rem}
+  .steps{grid-template-columns:1fr 1fr;row-gap:2rem}
+  .steps::before{display:none}
+}
+@media (max-width:520px){
+  .steps{grid-template-columns:1fr}
+  .arrows{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  html{scroll-behavior:auto}
+}
+
+/* Modal Styles */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1000; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0,0,0,0.6); 
+  justify-content: center;
+  align-items: center;
+}
+.modal.show { display: flex; }
+.modal-content {
+  background: var(--surface);
+  color: var(--ink);
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  animation: modalIn 0.3s ease-out;
+}
+@keyframes modalIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+.close-btn:hover { color: var(--ink); }
+.input-group { margin-bottom: 1.2rem; }
+.input-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.95rem; }
+.input-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+.input-group input:focus {
+  outline: 2px solid var(--gold);
+  border-color: transparent;
+}
+
+@media (max-width:480px){
+  .btn { padding: .7rem 1.2rem !important; font-size: .9rem !important; }
+  .logo { font-size: 1.1rem; }
+  .top { padding: 1rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== 1. HERO ========== -->
+<header class="hero" id="top">
+  <div class="top">
+    <a class="logo" href="#top">Orzigul Rabbimova</a>
+    <nav aria-label="Asosiy menyu">
+      <a href="#ishlar">Ishlarim</a>
+      <a href="#xizmat">Xizmatlar</a>
+      <a href="#jarayon">Jarayon</a>
+    </nav>
+    <div style="display:flex; gap: 0.8rem; align-items: center;">
+      <button id="theme-toggle" class="btn ghost theme-btn" aria-label="Temani o'zgartirish">
+        <svg id="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg id="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+      <button type="button" class="btn gold" id="order-trigger-btn">Buyurtma berish</button>
+    </div>
+  </div>
+
+  <div class="hero-grid">
+    <div>
+      <!-- Sarlavha va matnni o'zingizniki bilan almashtiring -->
+      <h1>Telefon bilan kinodek suratga olaman.</h1>
+      <p class="lead">Men Orzigul, mobilografman. Kafe, do'kon va bloggerlar uchun reels, foto va qisqa videolar yarataman.</p>
+      <div class="cta">
+        <a class="btn gold" href="#ishlar">Ishlarimni ko'rish</a>
+        <a class="btn ghost" href="#aloqa">Bog'lanish</a>
+      </div>
+    </div>
+
+    <div class="cam-wrap">
+      <div class="cam">
+        <div class="screen" id="screen">
+          <div class="scenes" id="scenes">
+            <div class="scene s0 on"></div>
+            <div class="scene s1"></div>
+            <div class="scene s2"></div>
+            <div class="scene s3"></div>
+          </div>
+          <div class="grid3" aria-hidden="true"></div>
+          <div class="island" aria-hidden="true"></div>
+          <div class="hud hud-top" aria-hidden="true">
+            <span class="rec"><i></i><span id="tc">00:00:00</span></span>
+            <span>4K 60</span>
+          </div>
+          <div class="focus" id="focus" aria-hidden="true"></div>
+          <div class="hud hud-bot">
+            <span class="scene-name" id="sname" aria-live="polite">Oltin soat</span>
+            <div class="zoom" role="group" aria-label="Zoom">
+              <button type="button" data-z="1" aria-pressed="true">1x</button>
+              <button type="button" data-z="1.5" aria-pressed="false">2x</button>
+              <button type="button" data-z="2" aria-pressed="false">3x</button>
+            </div>
+            <button class="shutter" id="shutter" type="button" aria-label="Suratga olish, keyingi kadr"></button>
+          </div>
+          <div class="flash" id="flash" aria-hidden="true"></div>
+        </div>
+      </div>
+      <p class="cam-hint">Kadrni bosib fokus qiling, tugma bilan keyingi suratga o'ting.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ========== 2. ISHLARIM ========== -->
+<section class="block" id="ishlar">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <h2>Ishlarim</h2>
+        <p class="sub">Hammasi vertikal formatda, telefon ekrani uchun.</p>
+      </div>
+      <div class="arrows">
+        <button type="button" id="prev" aria-label="Oldingi ishlar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button type="button" id="next" aria-label="Keyingi ishlar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <!-- Haqiqiy ishlaringizni qo'shish: .reel ichiga <img> yoki <video> qo'ying -->
+    <div class="strip" id="strip" tabindex="0" aria-label="Ishlar ro'yxati">
+      <article class="reel r1"><div class="bars" aria-hidden="true"><span></span><span></span><span></span></div><div class="info"><span class="tag">Reels</span><h3>Nur Cafe: bahorgi menyu</h3></div></article>
+      <article class="reel r2"><div class="bars" aria-hidden="true"><span></span><span></span><span></span></div><div class="info"><span class="tag">Brend foto</span><h3>Gul Atelye: yangi kolleksiya</h3></div></article>
+      <article class="reel r3"><div class="bars" aria-hidden="true"><span></span><span></span><span></span></div><div class="info"><span class="tag">Tadbir</span><h3>Sahar: yozgi festival</h3></div></article>
+      <article class="reel r4"><div class="bars" aria-hidden="true"><span></span><span></span><span></span></div><div class="info"><span class="tag">Shaxsiy loyiha</span><h3>Shahar tunda</h3></div></article>
+      <article class="reel r5"><div class="bars" aria-hidden="true"><span></span><span></span><span></span></div><div class="info"><span class="tag">Mahsulot</span><h3>Bahor Market: katalog</h3></div></article>
+      <article class="reel r6"><div class="bars" aria-hidden="true"><span></span><span></span><span></span></div><div class="info"><span class="tag">Vlog</span><h3>Bir kunim</h3></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 3. MEN HAQIMDA ========== -->
+<section class="block" id="haqida">
+  <div class="wrap about">
+    <h2>Kichik ekran, katta hikoya.</h2>
+    <div>
+      <p>Men Orzigul, 22 yoshdaman va Toshkentda yashayman. Uch yildan beri telefon bilan suratga olaman va brendlarga ijtimoiy tarmoq uchun kontent yarataman.</p>
+      <p>Menga qimmat kamera shart emas: yaxshi yorug'lik, to'g'ri kadr va g'oya kifoya. Har bir loyihani mijozning o'zi bilan gaplashib boshlayman.</p>
+      <h3 class="gear-title">Nima bilan ishlayman</h3>
+      <ul class="chips">
+        <li>iPhone 15 Pro</li>
+        <li>Gimbal</li>
+        <li>Tashqi mikrofon</li>
+        <li>Mini yoritgich</li>
+        <li>CapCut</li>
+        <li>Lightroom Mobile</li>
+        <li>VN Editor</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4. XIZMATLAR ========== -->
+<section class="block" id="xizmat">
+  <div class="wrap">
+    <h2>Xizmatlar</h2>
+    <p class="sub">Narxlar taxminiy, aniq narx loyihaga qarab kelishiladi.</p>
+    <ul class="svc">
+      <li><h3>Reels va qisqa videolar</h3><p>15 dan 60 soniyagacha vertikal video: g'oya, suratga olish va montaj.</p><span class="price">300 000 so'mdan</span></li>
+      <li><h3>Brend va mahsulot suratlari</h3><p>Katalog, menyu va ijtimoiy tarmoq uchun toza va yorug' suratlar.</p><span class="price">200 000 so'mdan</span></li>
+      <li><h3>Tadbir va to'y hikoyalari</h3><p>Kun davomidagi eng yaxshi lahzalardan qisqa film.</p><span class="price">500 000 so'mdan</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== 5. JARAYON ========== -->
+<section class="block" id="jarayon">
+  <div class="wrap">
+    <h2>Qanday ishlayman</h2>
+    <p class="sub">Buyurtmadan tayyor kontentgacha to'rt qadam.</p>
+    <ol class="steps">
+      <li><div class="n">1</div><h3>Bog'lanamiz</h3><p>Maqsadingiz va g'oyangizni eshitaman.</p></li>
+      <li><div class="n">2</div><h3>Reja tuzamiz</h3><p>Kadrlar ro'yxati va suratga olish kunini kelishamiz.</p></li>
+      <li><div class="n">3</div><h3>Suratga olaman</h3><p>Telefon, gimbal va yorug'lik bilan ishlayman.</p></li>
+      <li><div class="n">4</div><h3>Montaj va topshirish</h3><p>Tayyor kontentni 3 kun ichida topshiraman.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========== 6. MIJOZ FIKRI ========== -->
+<section class="block" id="fikr">
+  <div class="wrap">
+    <figure class="quote">
+      <blockquote>Orzigul bizning kafemizni 15 soniyada sevimli joyga aylantirdi. Reelsdan keyin mehmonlar ikki baravar ko'paydi.</blockquote>
+      <figcaption>Nilufar, Nur Cafe egasi</figcaption>
+    </figure>
+    <div class="brands" aria-label="Hamkorlar">
+      <span>Nur Cafe</span><span>Gul Atelye</span><span>Sahar</span><span>Bahor Market</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 7. ALOQA ========== -->
+<section class="block" id="aloqa">
+  <div class="wrap">
+    <div class="contact">
+      <h2>Men bilan bog'lanish</h2>
+      <p>Loyihangiz haqida qisqa yozing, bir kun ichida javob beraman.</p>
+      <!-- Havolalarni o'zingiznikiga almashtiring -->
+      <div class="cta">
+        <a class="btn gold" href="https://t.me/bakhadirovna_smm">Telegramda yozish</a>
+        <a class="btn ghost" href="https://instagram.com/bakhadirovnaa_smm">Instagram</a>
+        <a class="btn ghost" href="mailto:orzigul@example.uz">Pochta</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Orzigul Rabbimova, mobilograf. Toshkent.</p>
+</footer>
+
+<script>
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+/* ---------- Tema o'zgartirish ---------- */
+(function(){
+  var themeToggleBtn = document.getElementById('theme-toggle');
+  var root = document.documentElement;
+  var sunIcon = document.getElementById('sun-icon');
+  var moonIcon = document.getElementById('moon-icon');
+
+  var savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+      root.setAttribute('data-theme', savedTheme);
+      updateIcon(savedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      root.setAttribute('data-theme', 'dark');
+      updateIcon('dark');
+  } else {
+      root.setAttribute('data-theme', 'light');
+      updateIcon('light');
+  }
+
+  function updateIcon(theme) {
+      if (theme === 'dark') {
+          sunIcon.style.display = 'block';
+          moonIcon.style.display = 'none';
+      } else {
+          sunIcon.style.display = 'none';
+          moonIcon.style.display = 'block';
+      }
+  }
+
+  if(themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', function() {
+        var currentTheme = root.getAttribute('data-theme');
+        var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        root.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateIcon(newTheme);
+    });
+  }
+})();
+
+/* ---------- Telefon kadri ---------- */
+(function(){
+  var scenes = document.querySelectorAll('.scene');
+  var names = ['Oltin soat','Dengiz bo\'yi','Tungi shahar','Bahor'];
+  var idx = 0;
+  var screen = document.getElementById('screen');
+  var focus = document.getElementById('focus');
+  var flash = document.getElementById('flash');
+  var sname = document.getElementById('sname');
+  var scenesBox = document.getElementById('scenes');
+  var focusTimer;
+
+  /* Fokus kvadrati */
+  function placeFocus(e){
+    var r = screen.getBoundingClientRect();
+    focus.style.left = (e.clientX - r.left) + 'px';
+    focus.style.top = (e.clientY - r.top) + 'px';
+  }
+  function pulse(){
+    clearTimeout(focusTimer);
+    if (!reduce){
+      focus.animate([
+        {opacity:1, transform:'translate(-50%,-50%) scale(1.5)'},
+        {opacity:1, transform:'translate(-50%,-50%) scale(1)'}
+      ], {duration:260, easing:'ease-out', fill:'forwards'});
+    } else { focus.style.opacity = 1; }
+    focusTimer = setTimeout(function(){ focus.style.opacity = 0; focus.getAnimations().forEach(function(a){ a.cancel(); }); }, 1400);
+  }
+  screen.addEventListener('pointerdown', function(e){
+    if (e.target.closest('button')) return;
+    placeFocus(e); pulse();
+  });
+  screen.addEventListener('pointermove', function(e){
+    if (e.pointerType === 'mouse' && !e.target.closest('button')){ placeFocus(e); focus.style.opacity = .55; clearTimeout(focusTimer); focusTimer = setTimeout(function(){ focus.style.opacity = 0; }, 900); }
+  });
+
+  /* Shutter: yorug'lik chaqnaydi va keyingi sahna */
+  document.getElementById('shutter').addEventListener('click', function(){
+    if (!reduce) flash.animate([{opacity:.9},{opacity:0}], {duration:380, easing:'ease-out'});
+    scenes[idx].classList.remove('on');
+    idx = (idx + 1) % scenes.length;
+    scenes[idx].classList.add('on');
+    sname.textContent = names[idx];
+  });
+
+  /* Zoom */
+  var zbtns = document.querySelectorAll('.zoom button');
+  zbtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      zbtns.forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      scenesBox.style.setProperty('--zoom', b.dataset.z);
+    });
+  });
+
+  /* Yozuv taymeri */
+  var tc = document.getElementById('tc');
+  var sec = 0;
+  function pad(n){ return (n<10?'0':'') + n; }
+  setInterval(function(){
+    sec++;
+    tc.textContent = '00:' + pad(Math.floor(sec/60)%60) + ':' + pad(sec%60);
+  }, 1000);
+})();
+
+/* ---------- Ishlar lentasi ---------- */
+(function(){
+  var strip = document.getElementById('strip');
+  function step(){ var r = strip.querySelector('.reel'); return r ? r.offsetWidth + 16 : 260; }
+  document.getElementById('prev').addEventListener('click', function(){ strip.scrollBy({left:-step()*2, behavior: reduce ? 'auto' : 'smooth'}); });
+  document.getElementById('next').addEventListener('click', function(){ strip.scrollBy({left: step()*2, behavior: reduce ? 'auto' : 'smooth'}); });
+})();
+
+</script>
+
+
+
+<!-- Modal -->
+<div id="order-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h2 style="margin-bottom: 1.5rem;">Buyurtma berish</h2>
+    <form id="order-form">
+      <div class="input-group">
+        <label for="fname">Ism va Familiya *</label>
+        <input type="text" id="fname" name="fname" placeholder="Ism Familiya">
+      </div>
+      <div class="input-group">
+        <label for="phone">Telefon raqam *</label>
+        <input type="tel" id="phone" name="phone" placeholder="+998 90 123 45 67">
+      </div>
+      <div class="input-group">
+        <label for="service">Qanaqa xizmat (ixtiyoriy)</label>
+        <input type="text" id="service" name="service" placeholder="Masalan: Reels videoga olish">
+      </div>
+      <p id="error-msg" style="color: #ff3b4e; display: none; font-size: 0.9rem; font-weight: 500;">Ma'lumotlarni to'liq to'ldiring</p>
+      <p id="success-msg" style="color: #4CAF50; display: none; font-size: 0.9rem; font-weight: 500;">So'rov muvaffaqiyatli yuborildi!</p>
+      <button type="submit" class="btn gold submit-btn" style="width: 100%; margin-top: 1rem; border: none; font-size: 1.05rem;">Yuborish</button>
+    </form>
+  </div>
+</div>
+
+/* ---------- Modal & Telegram Bot ---------- */
+<script>
+(function(){
+  var modal = document.getElementById('order-modal');
+  var closeBtn = document.querySelector('.close-btn');
+  var form = document.getElementById('order-form');
+  var errorMsg = document.getElementById('error-msg');
+  var successMsg = document.getElementById('success-msg');
+  var submitBtn = document.querySelector('.submit-btn');
+
+  var orderBtn = document.getElementById('order-trigger-btn');
+  if (orderBtn) {
+    orderBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      modal.classList.add('show');
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+      form.reset();
+    });
+  }
+
+  if(closeBtn) {
+    closeBtn.addEventListener('click', function() { modal.classList.remove('show'); });
+  }
+  window.addEventListener('click', function(e) { if (e.target === modal) modal.classList.remove('show'); });
+
+  // Auto-format phone input
+  var phoneInput = document.getElementById('phone');
+  if (phoneInput) {
+      phoneInput.addEventListener('focus', function() {
+          if (this.value.trim() === '') {
+              this.value = '+998 ';
+          }
+      });
+      phoneInput.addEventListener('input', function(e) {
+          var val = this.value.replace(/\D/g, '');
+          if (val.length === 0) {
+              this.value = '';
+              return;
+          }
+          if (!val.startsWith('998')) {
+              val = '998' + val;
+          }
+          var formatted = '+' + val.substring(0, 3);
+          if (val.length > 3) formatted += ' ' + val.substring(3, 5);
+          if (val.length > 5) formatted += ' ' + val.substring(5, 8);
+          if (val.length > 8) formatted += ' ' + val.substring(8, 10);
+          if (val.length > 10) formatted += ' ' + val.substring(10, 12);
+          this.value = formatted;
+      });
+  }
+
+  if(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault(); // prevents page reload
+      
+      var fname = document.getElementById('fname').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+      var service = document.getElementById('service').value.trim();
+      
+      if (!fname || !phone) {
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = 'Ma\'lumotlarni to\'liq to\'ldiring';
+        successMsg.style.display = 'none';
+        return;
+      }
+      // require valid length phone
+      if (phone.replace(/\D/g, '').length < 12) {
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = 'Telefon raqamni to\'liq kiriting';
+        successMsg.style.display = 'none';
+        return;
+      }
+
+      errorMsg.style.display = 'none';
+      submitBtn.textContent = 'Yuborilmoqda...';
+      submitBtn.disabled = true;
+      
+      // BOT TOKENS
+      var botToken = '8838439473:AAGNYwXPQNMIzWxcQHtqp7ZaLa8Qgix1Pl4';
+      var chatId = '7454746576';
+      
+      var text = '🎉 Yangi buyurtma:\n\n👤 Ism: ' + fname + '\n📞 Tel: ' + phone + '\n💼 Xizmat: ' + (service ? service : 'Kiritilmadi');
+      
+      fetch('https://api.telegram.org/bot' + botToken + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text: text })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        submitBtn.textContent = 'Yuborish';
+        submitBtn.disabled = false;
+        if (data.ok) {
+          successMsg.style.display = 'block';
+          form.reset();
+          setTimeout(function(){ modal.classList.remove('show'); }, 2000);
+        } else {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'Xatolik yuz berdi. Bot tokenini tekshiring.';
+        }
+      })
+      .catch(function(err) {
+        submitBtn.textContent = 'Yuborish';
+        submitBtn.disabled = false;
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = 'Internet aloqasini tekshiring.';
+      });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

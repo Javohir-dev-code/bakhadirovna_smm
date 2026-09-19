@@ -132,7 +132,10 @@
           <label style="font-size: 0.9rem; color: var(--ink-soft);">Rasm yuklash</label>
           <input type="file" id="cert-file" accept="image/*">
         </div>
+        
         <button class="btn" id="add-cert-btn" style="margin-top: 1rem;">Qo'shish</button>
+        <button class="btn" id="clear-cert-btn" style="margin-top: 1rem; background: transparent; border: 1px solid #ff3b4e; color: #ff3b4e;">Barcha Sertifikatlarni O'chirish</button>
+
       </div>
     </div>
   </div>
@@ -203,10 +206,42 @@
         alert("O'zgarishlar muvaffaqiyatli saqlandi! Asosiy saytga o'tib yangilasangiz o'zgarishlar ko'rinadi.");
     });
 
-    // Add Cert Logic (Dummy)
+
+    // Real Cert Logic with localStorage
     document.getElementById('add-cert-btn').addEventListener('click', function() {
-        alert("Server (Backend) ulanmaganligi sababli rasm bazaga saqlanmaydi. Bu vaqtinchalik namuna (Demo).");
+        const certName = document.getElementById('cert-name').value.trim();
+        const certFile = document.getElementById('cert-file').files[0];
+        
+        if(!certName || !certFile) {
+            alert("Iltimos sertifikat nomi va rasmini to'liq tanlang!");
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64Image = e.target.result;
+            let certs = JSON.parse(localStorage.getItem('site_certs') || '[]');
+            certs.push({ name: certName, image: base64Image });
+            
+            try {
+                localStorage.setItem('site_certs', JSON.stringify(certs));
+                alert("Sertifikat muvaffaqiyatli qo'shildi!");
+                document.getElementById('cert-name').value = '';
+                document.getElementById('cert-file').value = '';
+            } catch (error) {
+                alert("Xatolik! Rasm hajmi juda katta bo'lishi mumkin (Xotiraga sig'madi).");
+            }
+        };
+        reader.readAsDataURL(certFile);
     });
+
+    document.getElementById('clear-cert-btn').addEventListener('click', function() {
+        if(confirm("Haqiqatan ham barcha qo'shilgan sertifikatlarni o'chirmoqchimisiz?")) {
+            localStorage.removeItem('site_certs');
+            alert("Sertifikatlar tozalandi!");
+        }
+    });
+
   </script>
 </body>
 </html>

@@ -851,5 +851,39 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 })();
 </script>
 
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const siteName = localStorage.getItem('site_name');
+    const siteTitle = localStorage.getItem('site_title');
+    const siteTg = localStorage.getItem('site_tg');
+    const siteIg = localStorage.getItem('site_ig');
+
+    if (siteName) {
+        document.querySelectorAll('.logo').forEach(el => el.textContent = siteName);
+        const h1 = document.querySelector('h1');
+        if (h1 && h1.innerHTML.includes('<br>')) {
+            const parts = h1.innerHTML.split('<br>');
+            h1.innerHTML = siteName.split(' ')[0] + '<br>' + (siteName.split(' ').slice(1).join(' ') || parts[1]);
+        } else if (h1) {
+            h1.textContent = siteName;
+        }
+    }
+
+    if (siteTitle) {
+        const sub = document.querySelector('.hero p.sub');
+        if (sub) sub.textContent = siteTitle;
+    }
+
+    if (siteTg) {
+        document.querySelectorAll('a[href*="t.me"]').forEach(el => el.href = siteTg);
+    }
+    
+    if (siteIg) {
+        document.querySelectorAll('a[href*="instagram.com"]').forEach(el => el.href = siteIg);
+    }
+});
+</script>
 </body>
+
 </html>

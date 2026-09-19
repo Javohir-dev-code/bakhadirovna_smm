@@ -97,6 +97,31 @@
         </div>
       </div>
       
+      
+      <div class="card">
+        <h3>Sayt Sozlamalari</h3>
+        <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1rem;">
+          Bu yerdan saytdagi yozuvlar va havolalarni o'zgartirishingiz mumkin. (O'zgarishlar brauzer xotirasida saqlanadi).
+        </p>
+        <div class="form-group">
+          <label style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">Ism va Familiya</label>
+          <input type="text" id="set-name" placeholder="Masalan: Orzigul Rabbimova" style="width: 100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: #fff;">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">Asosiy Sarlavha</label>
+          <input type="text" id="set-title" placeholder="Masalan: SMM & Mobilografiya" style="width: 100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: #fff;">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">Telegram Linki</label>
+          <input type="text" id="set-tg" placeholder="https://t.me/..." style="width: 100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: #fff;">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">Instagram Linki</label>
+          <input type="text" id="set-ig" placeholder="https://instagram.com/..." style="width: 100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: #fff;">
+        </div>
+        <button class="btn" id="save-settings-btn" style="margin-top: 1rem;">O'zgarishlarni Saqlash</button>
+      </div>
+
       <div class="card">
         <h3>Yangi Sertifikat Qo'shish</h3>
         <div class="form-group">
@@ -156,6 +181,28 @@
         document.getElementById('admin-pass').value = '';
     });
     
+    
+    // Load existing settings into inputs
+    document.getElementById('set-name').value = localStorage.getItem('site_name') || '';
+    document.getElementById('set-title').value = localStorage.getItem('site_title') || '';
+    document.getElementById('set-tg').value = localStorage.getItem('site_tg') || '';
+    document.getElementById('set-ig').value = localStorage.getItem('site_ig') || '';
+
+    // Save Settings Logic
+    document.getElementById('save-settings-btn').addEventListener('click', function() {
+        const name = document.getElementById('set-name').value.trim();
+        const title = document.getElementById('set-title').value.trim();
+        const tg = document.getElementById('set-tg').value.trim();
+        const ig = document.getElementById('set-ig').value.trim();
+        
+        if(name) localStorage.setItem('site_name', name); else localStorage.removeItem('site_name');
+        if(title) localStorage.setItem('site_title', title); else localStorage.removeItem('site_title');
+        if(tg) localStorage.setItem('site_tg', tg); else localStorage.removeItem('site_tg');
+        if(ig) localStorage.setItem('site_ig', ig); else localStorage.removeItem('site_ig');
+        
+        alert("O'zgarishlar muvaffaqiyatli saqlandi! Asosiy saytga o'tib yangilasangiz o'zgarishlar ko'rinadi.");
+    });
+
     // Add Cert Logic (Dummy)
     document.getElementById('add-cert-btn').addEventListener('click', function() {
         alert("Server (Backend) ulanmaganligi sababli rasm bazaga saqlanmaydi. Bu vaqtinchalik namuna (Demo).");

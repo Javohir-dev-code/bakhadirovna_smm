@@ -342,6 +342,51 @@ footer p{margin:0 auto}
   .logo { font-size: 1.1rem; }
   .top { padding: 1rem 1rem; }
 }
+
+/* =========================================================
+   SERTIFIKATLAR
+   ========================================================= */
+.certs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.cert-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cert-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+.cert-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 1rem;
+  color: var(--gold);
+}
+.cert-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.cert-card p {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
 </style>
 </head>
 <body>
@@ -354,6 +399,7 @@ footer p{margin:0 auto}
       <a href="#ishlar">Ishlarim</a>
       <a href="#xizmat">Xizmatlar</a>
       <a href="#jarayon">Jarayon</a>
+      <a href="#sertifikat">Sertifikatlar</a>
     </nav>
     <div style="display:flex; gap: 0.8rem; align-items: center;">
       <button id="theme-toggle" class="btn ghost theme-btn" aria-label="Temani o'zgartirish">
@@ -480,6 +526,32 @@ footer p{margin:0 auto}
       <li><div class="n">3</div><h3>Suratga olaman</h3><p>Telefon, gimbal va yorug'lik bilan ishlayman.</p></li>
       <li><div class="n">4</div><h3>Montaj va topshirish</h3><p>Tayyor kontentni 3 kun ichida topshiraman.</p></li>
     </ol>
+  </div>
+</section>
+
+
+<!-- ========== SERTIFIKATLAR ========== -->
+<section class="block" id="sertifikat">
+  <div class="wrap">
+    <h2>Sertifikatlar</h2>
+    <p class="sub">Men tamomlagan kurslar va olgan bilimlarim.</p>
+    <div class="certs">
+      <div class="cert-card">
+        <svg class="cert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <h3>Mobilografiya Pro</h3>
+        <p>2023 - Professional suratga olish</p>
+      </div>
+      <div class="cert-card">
+        <svg class="cert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <h3>SMM Mutaxassisi</h3>
+        <p>2022 - Ijtimoiy tarmoqlar marketingi</p>
+      </div>
+      <div class="cert-card">
+        <svg class="cert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <h3>CapCut Masterclass</h3>
+        <p>2023 - Murakkab montaj</p>
+      </div>
+    </div>
   </div>
 </section>
 

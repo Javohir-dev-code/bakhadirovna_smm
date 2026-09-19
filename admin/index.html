@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel - Orzigul</title>
+  <style>
+    :root {
+      --bg: #140b17;
+      --surface: #1e1124;
+      --ink: #fff;
+      --ink-soft: rgba(255,255,255,0.6);
+      --gold: #FFC46B;
+      --accent: #E5A353;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+    body { background: var(--bg); color: var(--ink); display: flex; flex-direction: column; min-height: 100vh; }
+    
+    /* LOGIN SCREEN */
+    #login-screen {
+      flex: 1; display: flex; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .login-box {
+      background: var(--surface); padding: 2.5rem; border-radius: 20px; width: 100%; max-width: 400px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .login-box h2 { margin-bottom: 1.5rem; text-align: center; color: var(--gold); }
+    .input-group { margin-bottom: 1.5rem; }
+    .input-group label { display: block; margin-bottom: 0.5rem; color: var(--ink-soft); font-size: 0.9rem; }
+    .input-group input { 
+      width: 100%; padding: 0.9rem 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05); color: #fff; font-size: 1rem; outline: none;
+    }
+    .input-group input:focus { border-color: var(--gold); }
+    .btn {
+      width: 100%; padding: 1rem; border-radius: 999px; border: none; background: var(--gold);
+      color: #2A1330; font-weight: bold; font-size: 1.05rem; cursor: pointer; transition: 0.2s;
+    }
+    .btn:hover { background: var(--accent); }
+    .error { color: #ff3b4e; font-size: 0.85rem; text-align: center; margin-bottom: 1rem; display: none; }
+    
+    /* DASHBOARD */
+    #dashboard { display: none; padding: 2rem; max-width: 1000px; margin: 0 auto; width: 100%; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+    header h1 { color: var(--gold); }
+    .logout-btn { background: transparent; border: 1px solid var(--ink-soft); color: var(--ink); padding: 0.5rem 1.5rem; border-radius: 999px; cursor: pointer; }
+    
+    .grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+    
+    .card { background: var(--surface); padding: 2rem; border-radius: 20px; }
+    .card h3 { margin-bottom: 1rem; font-size: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; }
+    .order-item { padding: 1rem 0; border-bottom: 1px dashed rgba(255,255,255,0.1); }
+    .order-item:last-child { border: none; }
+    
+    .form-group { margin-bottom: 1rem; }
+    .form-group input[type="file"] { display: block; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="login-screen">
+    <div class="login-box">
+      <h2>Admin Panel</h2>
+      <p class="error" id="login-error">Login yoki parol noto'g'ri!</p>
+      <div class="input-group">
+        <label>Telefon raqam</label>
+        <input type="text" id="admin-phone" placeholder="+998" autocomplete="off">
+      </div>
+      <div class="input-group">
+        <label>Parol</label>
+        <input type="password" id="admin-pass" placeholder="Parolni kiriting">
+      </div>
+      <button class="btn" id="login-btn">Kirish</button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+    <header>
+      <h1>Boshqaruv Paneli</h1>
+      <button class="logout-btn" id="logout-btn">Chiqish</button>
+    </header>
+    
+    <div class="grid">
+      <div class="card">
+        <h3>So'nggi Buyurtmalar</h3>
+        <p style="color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 1rem;">
+          Yangi buyurtmalar bevosita Telegram botingizga yuborilmoqda. Sayt orqali kelgan barcha xabarlar botda saqlanadi.
+        </p>
+        <div class="order-item">
+          <strong>Telegram Bot:</strong> @bakhadirovnaa_bot
+        </div>
+        <div class="order-item">
+          <strong>Holat:</strong> Aktiv ✅
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3>Yangi Sertifikat Qo'shish</h3>
+        <div class="form-group">
+          <label style="font-size: 0.9rem; color: var(--ink-soft);">Sertifikat nomi</label>
+          <input type="text" id="cert-name" placeholder="Masalan: SMM Pro" style="width: 100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: #fff;">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 0.9rem; color: var(--ink-soft);">Rasm yuklash</label>
+          <input type="file" id="cert-file" accept="image/*">
+        </div>
+        <button class="btn" id="add-cert-btn" style="margin-top: 1rem;">Qo'shish</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Phone auto-format for +998
+    const phoneInput = document.getElementById('admin-phone');
+    phoneInput.addEventListener('focus', function() {
+        if (this.value.trim() === '') this.value = '+998 ';
+    });
+    phoneInput.addEventListener('input', function(e) {
+        let val = this.value.replace(/\D/g, '');
+        if (val.length === 0) { this.value = ''; return; }
+        if (!val.startsWith('998')) val = '998' + val;
+        
+        let formatted = '+' + val.substring(0, 3);
+        if (val.length > 3) formatted += ' ' + val.substring(3, 5);
+        if (val.length > 5) formatted += ' ' + val.substring(5, 8);
+        if (val.length > 8) formatted += ' ' + val.substring(8, 10);
+        if (val.length > 10) formatted += ' ' + val.substring(10, 12);
+        this.value = formatted;
+    });
+
+    // Login Logic
+    document.getElementById('login-btn').addEventListener('click', function() {
+        const phone = document.getElementById('admin-phone').value.replace(/\s+/g, '');
+        const pass = document.getElementById('admin-pass').value;
+        const err = document.getElementById('login-error');
+
+        // Credentials
+        const validPhone = "+998940531610";
+        const validPass = "orzigul_owa";
+
+        if (phone === validPhone && pass === validPass) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            err.style.display = 'none';
+        } else {
+            err.style.display = 'block';
+        }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        document.getElementById('dashboard').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('admin-pass').value = '';
+    });
+    
+    // Add Cert Logic (Dummy)
+    document.getElementById('add-cert-btn').addEventListener('click', function() {
+        alert("Server (Backend) ulanmaganligi sababli rasm bazaga saqlanmaydi. Bu vaqtinchalik namuna (Demo).");
+    });
+  </script>
+</body>
+</html>
